@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_scene.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamigore <tamigore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seiseo <seiseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:26:22 by tamigore          #+#    #+#             */
-/*   Updated: 2021/02/01 16:09:55 by tamigore         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:18:51 by seiseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void		get_resolution(t_env *env)
 		(env->sceen)++;
 	env->res.x = str_to_unsigned(env);
 	env->res.y = str_to_unsigned(env);
-	mlx_get_screen_size(env->mlx, &x, &y);
+	//mlx_get_screen_size(env->mlx, &x, &y);
+	x = 1920;
+	y = 1080;
 	if (env->res.x > x)
 		env->res.x = x;
 	if (env->res.y > y)

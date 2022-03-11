@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasanter <dasanter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seiseo <seiseo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 13:28:29 by tamigore          #+#    #+#             */
-/*   Updated: 2022/03/10 15:31:12 by dasanter         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:45:01 by seiseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,10 @@ static void			put_pixel_to_image(t_env *env, t_v3 color, int x, int y)
 
 int		inter(t_ray *ray, t_sph *sphere)
 {
-	double a = 1;
+	double a = v_dot(ray->dir, ray->dir);
 	double b = 2 * v_dot(ray->dir, v_sub(ray->pos, sphere->pos));
 	double c = v_norm2(v_sub(ray->pos, sphere->pos)) - (sphere->r * sphere->r);
 	double delta = b * b - 4 * a * c;
-
 	if (delta < 0)
 		return (0);
 	//printf("DELTA : %f\n", v_dot(ray->dir, ray->dir));
@@ -80,6 +79,8 @@ int		inter(t_ray *ray, t_sph *sphere)
 	double t2 = (-b + sqrt(delta)) / (2 * a);
 	if (t2 > 0)
 		return (1);
+	// if (t1 > 0)
+	// 	return (1);
 	return (0);
 
 }
@@ -108,7 +109,7 @@ void	img_calc(t_env *env)
 		while (x < img->size_x)
 		{
 			reset_ray(&ray);
-			set_ray(&ray, env->cam->pos, v_init(x - img->size_x / 2, y - img->size_y / 2, - img->size_y / (2 * tan((M_PI * env->cam->fov / 180) / 2))), INFINITY);
+			set_ray(&ray, env->cam->pos, v_init((double)x - (double)img->size_x / 2.0, (double)y - (double)img->size_y / 2.0, - (double)img->size_y / (double)(2 * tan((M_PI * env->cam->fov / 180) / 2))), INFINITY);
 			ray.dir = v_norm(ray.dir);
 		//	printf("RAY : \n	dir : [%f, %f, %f]\n", ray.dir.x,ray.dir.y,ray.dir.z);
 
